@@ -101,6 +101,29 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ==========================================
+// PORTFOLIO - TAP POUR AFFICHER OVERLAY SUR MOBILE
+// ==========================================
+if (window.innerWidth <= 768) {
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    portfolioItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Retirer la classe active de tous les items
+            portfolioItems.forEach(i => i.classList.remove('active'));
+            // Ajouter la classe active à l'item cliqué
+            this.classList.add('active');
+        });
+    });
+    
+    // Fermer l'overlay en cliquant ailleurs
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.portfolio-item')) {
+            portfolioItems.forEach(item => item.classList.remove('active'));
+        }
+    });
+}
+
+// ==========================================
 // INTERSECTION OBSERVER FOR ANIMATIONS
 // ==========================================
 const observerOptions = {

@@ -1743,6 +1743,25 @@ a {
         grid-template-columns: 1fr;
     }
     
+    /* Portfolio responsive mobile */
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .portfolio-item {
+        min-height: 250px;
+    }
+    
+    .portfolio-overlay {
+        opacity: 0;
+    }
+    
+    /* Sur mobile, afficher overlay au tap */
+    .portfolio-item.active .portfolio-overlay {
+        opacity: 1;
+    }
+    
     .story-grid {
         grid-template-columns: 1fr;
     }
