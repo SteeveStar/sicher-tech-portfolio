@@ -6,6 +6,22 @@
 'use strict';
 
 // ==========================================
+// PAGE LOADER
+// ==========================================
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.page-loader');
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            // Supprimer complètement après la transition
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        }, 500); // Délai minimum de 500ms pour montrer le loader
+    }
+});
+
+// ==========================================
 // MOBILE MENU TOGGLE - ANIMATION FLUIDE
 // ==========================================
 const hamburger = document.querySelector('.hamburger');
