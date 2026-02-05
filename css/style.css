@@ -933,6 +933,8 @@ a {
     border-radius: 15px;
     cursor: pointer;
     aspect-ratio: 4/3;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .portfolio-item img {
@@ -1034,6 +1036,17 @@ a {
     justify-content: space-between;
     align-items: center;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    transition: background 0.2s ease;
+}
+
+.faq-question:hover {
+    background: rgba(0, 255, 0, 0.05);
+}
+
+.faq-question:active {
+    background: rgba(0, 255, 0, 0.1);
 }
 
 .faq-question h3 {
@@ -1755,13 +1768,25 @@ a {
         min-height: 250px;
     }
     
-    .portfolio-overlay {
+    /* Sur mobile, masquer overlay par défaut */
+    .portfolio-item .portfolio-overlay {
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    /* Désactiver le hover sur mobile */
+    .portfolio-item:hover .portfolio-overlay {
         opacity: 0;
     }
     
-    /* Sur mobile, afficher overlay au tap */
+    /* Sur mobile, afficher overlay au tap avec classe active */
     .portfolio-item.active .portfolio-overlay {
-        opacity: 1;
+        opacity: 1 !important;
+        pointer-events: auto;
+    }
+    
+    .portfolio-item.active img {
+        transform: scale(1.05);
     }
     
     .story-grid {

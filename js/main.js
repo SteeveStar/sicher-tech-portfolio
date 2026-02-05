@@ -103,25 +103,42 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ==========================================
 // PORTFOLIO - TAP POUR AFFICHER OVERLAY SUR MOBILE
 // ==========================================
-if (window.innerWidth <= 768) {
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-    
-    portfolioItems.forEach(item => {
-        item.addEventListener('click', function() {
-            // Retirer la classe active de tous les items
-            portfolioItems.forEach(i => i.classList.remove('active'));
-            // Ajouter la classe active à l'item cliqué
-            this.classList.add('active');
+const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+function handlePortfolioInteraction() {
+    if (window.innerWidth <= 768) {
+        portfolioItems.forEach(item => {
+            // Gérer le tap/click
+            const handleTap = function(e) {
+                e.preventDefault();
+                // Retirer la classe active de tous les items
+                portfolioItems.forEach(i => i.classList.remove('active'));
+                // Ajouter la classe active à l'item cliqué
+                this.classList.add('active');
+            };
+            
+            item.addEventListener('touchstart', handleTap, { passive: false });
+            item.addEventListener('click', handleTap);
         });
-    });
-    
-    // Fermer l'overlay en cliquant ailleurs
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.portfolio-item')) {
-            portfolioItems.forEach(item => item.classList.remove('active'));
-        }
-    });
+        
+        // Fermer l'overlay en cliquant ailleurs
+        const closeOverlays = function(e) {
+            if (!e.target.closest('.portfolio-item')) {
+                portfolioItems.forEach(item => item.classList.remove('active'));
+            }
+        };
+        
+        document.addEventListener('touchstart', closeOverlays);
+        document.addEventListener('click', closeOverlays);
+    } else {
+        // Sur desktop, retirer les classes active
+        portfolioItems.forEach(item => item.classList.remove('active'));
+    }
 }
+
+// Initialiser et gérer le resize
+handlePortfolioInteraction();
+window.addEventListener('resize', handlePortfolioInteraction);
 
 // ==========================================
 // ANIMATION CARTES SERVICES AU CLIC
@@ -188,16 +205,29 @@ if (faqItems.length > 0) {
         const question = item.querySelector('.faq-question');
         
         if (question) {
-            question.addEventListener('click', function() {
-                // Close other items
+            const handleFAQClick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Vérifier si l'item est déjà actif
+                const isActive = item.classList.contains('active');
+                
+                // Fermer tous les items
                 faqItems.forEach(otherItem => {
-                    if (otherItem !== item && otherItem.classList.contains('active')) {
-                        otherItem.classList.remove('active');
-                    }
+                    otherItem.classList.remove('active');
                 });
                 
-                // Toggle current item
-                item.classList.toggle('active');
+                // Si l'item n'était pas actif, l'ouvrir
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            };
+            
+            // Ajouter les event listeners pour desktop et mobile
+            question.addEventListener('click', handleFAQClick);
+            question.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                handleFAQClick(e);
             });
         }
     });
