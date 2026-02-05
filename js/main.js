@@ -6,28 +6,26 @@
 'use strict';
 
 // ==========================================
-// PAGE LOADER
+// PAGE LOADER - DISPARITION IMMÉDIATE
 // ==========================================
-// Cacher le loader dès que le DOM est prêt
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', hideLoader);
-} else {
-    // DOM déjà chargé
-    hideLoader();
-}
-
-// Aussi cacher quand tout est complètement chargé
-window.addEventListener('load', hideLoader);
-
+// Cacher le loader immédiatement dès que possible
 function hideLoader() {
     const loader = document.querySelector('.page-loader');
     if (loader && !loader.classList.contains('hidden')) {
         loader.classList.add('hidden');
-        // Supprimer complètement après la transition
+        // Supprimer complètement après la transition rapide
         setTimeout(() => {
             loader.style.display = 'none';
-        }, 500);
+        }, 300);
     }
+}
+
+// Exécuter immédiatement si le DOM est déjà prêt
+if (document.readyState !== 'loading') {
+    hideLoader();
+} else {
+    // Sinon attendre le DOM
+    document.addEventListener('DOMContentLoaded', hideLoader);
 }
 
 // ==========================================
