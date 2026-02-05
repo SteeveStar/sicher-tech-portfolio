@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Sicher Tech</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .signup-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 1rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+        }
+        
+        .signup-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1100px;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+        }
+        
+        .signup-image {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.9) 0%, rgba(0, 200, 0, 0.9) 100%),
+                        url('https://via.placeholder.com/600x800/000000/00ff00?text=SICHER+TECH');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            color: var(--bg-dark);
+        }
+        
+        .signup-image h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--bg-dark);
+        }
+        
+        .signup-image p {
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--bg-dark);
+        }
+        
+        .signup-benefits {
+            list-style: none;
+            margin-top: 2rem;
+        }
+        
+        .signup-benefits li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--bg-dark);
+            font-size: 1rem;
+        }
+        
+        .signup-benefits i {
+            font-size: 1.5rem;
+            color: var(--bg-dark);
+        }
+        
+        .signup-form-container {
+            padding: 3rem;
+        }
+        
+        .signup-header {
+            margin-bottom: 2rem;
+        }
+        
+        .signup-header h1 {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .signup-header p {
+            color: var(--text-muted);
+        }
+        
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .password-strength {
+            height: 4px;
+            background: var(--bg-dark);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .password-strength-bar.weak {
+            width: 33%;
+            background: #ff4444;
+        }
+        
+        .password-strength-bar.medium {
+            width: 66%;
+            background: orange;
+        }
+        
+        .password-strength-bar.strong {
+            width: 100%;
+            background: var(--primary-color);
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(0, 255, 0, 0.2);
+        }
+        
+        .divider span {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .social-signup {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            background: var(--bg-dark);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 8px;
+            color: var(--text-color);
+            transition: var(--transition);
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .social-btn:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        .social-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .social-btn.google i {
+            color: #EA4335;
+        }
+        
+        .social-btn.facebook i {
+            color: #1877F2;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+        }
+        
+        .login-link a {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 968px) {
+            .signup-wrapper {
+                grid-template-columns: 1fr;
+            }
+            
+            .signup-image {
+                display: none;
+            }
+            
+            .signup-form-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .form-row-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-signup {
+                grid-template-columns: 1fr;
+            }
+            
+            .signup-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-text">SICHER</span>
+                <span class="logo-highlight">TECH</span>
+            </div>
+            <div class="nav-actions">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <a href="signup.html" class="btn-signup">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Sign Up</span>
+                </a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Signup Container -->
+    <div class="signup-container">
+        <div class="signup-wrapper">
+            <!-- Left Side - Image & Benefits -->
+            <div class="signup-image">
+                <div>
+                    <h2>Join Sicher Tech</h2>
+                    <p>Create an account and unlock exclusive benefits</p>
+                    
+                    <ul class="signup-benefits">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Access to exclusive resources</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Priority support & consultation</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Special discounts on services</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Project management dashboard</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Monthly tech insights newsletter</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Side - Form -->
+            <div class="signup-form-container">
+                <div class="signup-header">
+                    <h1>Create Your Account</h1>
+                    <p>Start your journey with Sicher Tech today</p>
+                </div>
+
+                <!-- Social Signup -->
+                <div class="social-signup">
+                    <button class="social-btn google" onclick="showComingSoon('Google')">
+                        <i class="fab fa-google"></i>
+                        <span>Google</span>
+                    </button>
+                    <button class="social-btn facebook" onclick="showComingSoon('Facebook')">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </button>
+                </div>
+
+                <div class="divider">
+                    <span>or sign up with email</span>
+                </div>
+
+                <!-- Signup Form -->
+                <form id="signup-form" class="signup-form">
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password *</label>
+                        <input type="password" id="password" name="password" required>
+                        <i class="fas fa-eye password-toggle" onclick="togglePassword('password')"></i>
+                        <div class="password-strength">
+                            <div class="password-strength-bar" id="passwordStrength"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password *</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        <i class="fas fa-eye password-toggle" onclick="togglePassword('confirmPassword')"></i>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the <a href="#" style="color: var(--primary-color);">Terms of Service</a> and <a href="#" style="color: var(--primary-color);">Privacy Policy</a> *</label>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter">Send me updates, offers, and promotions</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <span>Create Account</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="login-link">
+                    Already have an account? <a href="login.html">Log In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script src="js/firebase-config.js"></script>
+    
+    <!-- Main JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Initialize Firebase
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.firebaseDB) {
+                window.firebaseDB.initialize();
+            }
+        });
+
+        // Password Strength Checker
+        const passwordInput = document.getElementById('password');
+        const strengthBar = document.getElementById('passwordStrength');
+
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            let strength = 0;
+
+            // Length check
+            if (password.length >= 8) strength++;
+            if (password.length >= 12) strength++;
+
+            // Character checks
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+
+            // Update strength bar
+            strengthBar.className = 'password-strength-bar';
+            if (strength <= 2) {
+                strengthBar.classList.add('weak');
+            } else if (strength <= 3) {
+                strengthBar.classList.add('medium');
+            } else {
+                strengthBar.classList.add('strong');
+            }
+        });
+
+        // Toggle Password Visibility
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Handle Form Submission
+        const signupForm = document.getElementById('signup-form');
+        
+        signupForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = {
+                firstName: this.querySelector('#firstName').value.trim(),
+                lastName: this.querySelector('#lastName').value.trim(),
+                email: this.querySelector('#email').value.trim(),
+                phone: this.querySelector('#phone').value.trim(),
+                password: this.querySelector('#password').value,
+                confirmPassword: this.querySelector('#confirmPassword').value,
+                terms: this.querySelector('#terms').checked,
+                newsletter: this.querySelector('#newsletter').checked,
+                createdAt: new Date().toISOString()
+            };
+
+            // Validation
+            if (formData.password !== formData.confirmPassword) {
+                showNotification('Les mots de passe ne correspondent pas', 'error');
+                return;
+            }
+
+            if (formData.password.length < 8) {
+                showNotification('Le mot de passe doit contenir au moins 8 caractères', 'error');
+                return;
+            }
+
+            if (!formData.terms) {
+                showNotification('Vous devez accepter les conditions d\'utilisation', 'error');
+                return;
+            }
+
+            try {
+                // TODO: Implement Firebase Authentication
+                // For now, save to localStorage
+                let users = JSON.parse(localStorage.getItem('sichertech_users')) || [];
+                
+                // Check if email already exists
+                if (users.find(u => u.email === formData.email)) {
+                    showNotification('Cet email est déjà utilisé', 'error');
+                    return;
+                }
+
+                // Remove password from stored data (in real app, hash it!)
+                const userData = { ...formData };
+                delete userData.password;
+                delete userData.confirmPassword;
+
+                users.push(userData);
+                localStorage.setItem('sichertech_users', JSON.stringify(users));
+
+                showNotification('Compte créé avec succès! Redirection...', 'success');
+                
+                // Redirect after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+
+            } catch (error) {
+                showNotification('Erreur lors de la création du compte', 'error');
+                console.error(error);
+            }
+        });
+
+        // Coming Soon for Social Login
+        function showComingSoon(provider) {
+            showNotification(`Connexion avec ${provider} bientôt disponible!`, 'info');
+        }
+    </script>
+</body>
+</html>

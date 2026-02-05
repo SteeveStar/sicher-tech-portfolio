@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Form Submissions</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 2rem 2rem;
+        }
+        
+        .admin-header {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+        }
+        
+        .admin-header h1 {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            text-align: center;
+        }
+        
+        .stat-card .stat-number {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-weight: 800;
+        }
+        
+        .stat-card .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .admin-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .admin-actions .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .submissions-table {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        thead {
+            background: rgba(0, 255, 0, 0.1);
+        }
+        
+        th {
+            padding: 1rem;
+            text-align: left;
+            color: var(--text-color);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        td {
+            padding: 1rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(0, 255, 0, 0.1);
+        }
+        
+        tbody tr:hover {
+            background: rgba(0, 255, 0, 0.05);
+        }
+        
+        .submission-message {
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: rgba(0, 255, 0, 0.2);
+            color: var(--primary-color);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state h3 {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .filter-bar {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+        }
+        
+        .filter-bar input,
+        .filter-bar select {
+            padding: 0.5rem 1rem;
+            background: var(--bg-dark);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 5px;
+            color: var(--text-color);
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 0.3rem;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .action-btn.delete {
+            color: #ff4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-text">SICHER</span>
+                <span class="logo-highlight">TECH</span>
+            </div>
+            <div class="nav-actions">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="admin.html" class="active">Admin</a></li>
+                </ul>
+                <a href="signup.html" class="btn-signup">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Sign Up</span>
+                </a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-user-shield"></i> Admin Dashboard</h1>
+            <p style="color: var(--text-muted);">Manage and view contact form submissions</p>
+        </div>
+
+        <div class="admin-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalSubmissions">0</div>
+                <div class="stat-label">Total Submissions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todaySubmissions">0</div>
+                <div class="stat-label">Today</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="thisWeekSubmissions">0</div>
+                <div class="stat-label">This Week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="thisMonthSubmissions">0</div>
+                <div class="stat-label">This Month</div>
+            </div>
+        </div>
+
+        <div class="admin-actions">
+            <button class="btn btn-primary" onclick="refreshData()">
+                <i class="fas fa-sync"></i> Refresh
+            </button>
+            <button class="btn btn-secondary" onclick="exportSubmissionsToCSV()">
+                <i class="fas fa-download"></i> Export CSV
+            </button>
+            <button class="btn btn-outline" onclick="clearAllSubmissions()" style="border-color: #ff4444; color: #ff4444;">
+                <i class="fas fa-trash"></i> Clear All
+            </button>
+        </div>
+
+        <div class="filter-bar">
+            <input type="text" id="searchInput" placeholder="Search by name, email, or phone..." style="flex: 1; min-width: 250px;">
+            <select id="serviceFilter">
+                <option value="">All Services</option>
+                <option value="web-development">Web Development</option>
+                <option value="app-development">App Development</option>
+                <option value="ai-chatbots">AI Chatbots</option>
+                <option value="automation-crm">Automation & CRM</option>
+                <option value="digital-marketing">Digital Marketing</option>
+                <option value="consulting">Consulting</option>
+                <option value="other">Other</option>
+            </select>
+            <select id="budgetFilter">
+                <option value="">All Budgets</option>
+                <option value="under-5k">Under $5,000</option>
+                <option value="5k-10k">$5,000 - $10,000</option>
+                <option value="10k-25k">$10,000 - $25,000</option>
+                <option value="25k-50k">$25,000 - $50,000</option>
+                <option value="over-50k">Over $50,000</option>
+            </select>
+        </div>
+
+        <div class="submissions-table">
+            <div class="table-wrapper">
+                <table id="submissionsTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Company</th>
+                            <th>Service</th>
+                            <th>Budget</th>
+                            <th>Timeline</th>
+                            <th>Message</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="submissionsBody">
+                        <!-- Data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <i class="fas fa-inbox"></i>
+                <h3>No Submissions Yet</h3>
+                <p style="color: var(--text-muted);">Form submissions will appear here</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script src="js/firebase-config.js"></script>
+    
+    <!-- Main JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        let allSubmissions = [];
+        let filteredSubmissions = [];
+        let unsubscribe = null;
+        let useFirebase = false;
+
+        // Load submissions on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize Firebase
+            if (window.firebaseDB) {
+                useFirebase = window.firebaseDB.initialize();
+                if (useFirebase) {
+                    console.log('🔥 Firebase connecté - Mode Cloud');
+                    // Listen to real-time updates
+                    unsubscribe = window.firebaseDB.listen((submissions) => {
+                        allSubmissions = submissions;
+                        filteredSubmissions = [...allSubmissions];
+                        updateStats();
+                        renderTable();
+                    });
+                } else {
+                    console.log('📁 Mode Local uniquement');
+                    loadLocalSubmissions();
+                }
+            } else {
+                loadLocalSubmissions();
+            }
+            
+            setupFilters();
+        });
+
+        function loadLocalSubmissions() {
+            allSubmissions = getAllSubmissions();
+            filteredSubmissions = [...allSubmissions];
+            updateStats();
+            renderTable();
+        }
+
+        async function refreshData() {
+            if (useFirebase) {
+                // Firebase updates automatically with real-time listener
+                showNotification('Données synchronisées avec Firebase', 'success');
+            } else {
+                loadLocalSubmissions();
+                showNotification('Données locales rechargées', 'success');
+            }
+        }
+
+        function updateStats() {
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+            const monthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+
+            document.getElementById('totalSubmissions').textContent = allSubmissions.length;
+            
+            const todayCount = allSubmissions.filter(s => new Date(s.submittedAt) >= today).length;
+            document.getElementById('todaySubmissions').textContent = todayCount;
+            
+            const weekCount = allSubmissions.filter(s => new Date(s.submittedAt) >= weekAgo).length;
+            document.getElementById('thisWeekSubmissions').textContent = weekCount;
+            
+            const monthCount = allSubmissions.filter(s => new Date(s.submittedAt) >= monthAgo).length;
+            document.getElementById('thisMonthSubmissions').textContent = monthCount;
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('submissionsBody');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (filteredSubmissions.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            // Sort by date (newest first)
+            const sorted = [...filteredSubmissions].sort((a, b) => 
+                new Date(b.submittedAt) - new Date(a.submittedAt)
+            );
+            
+            tbody.innerHTML = sorted.map((sub, index) => `
+                <tr>
+                    <td>${formatDate(sub.submittedAt)}</td>
+                    <td><strong style="color: var(--text-color);">${sub.firstName} ${sub.lastName}</strong></td>
+                    <td><a href="mailto:${sub.email}" style="color: var(--primary-color);">${sub.email}</a></td>
+                    <td><a href="tel:${sub.phone}" style="color: var(--primary-color);">${sub.phone}</a></td>
+                    <td>${sub.company || 'N/A'}</td>
+                    <td><span class="badge">${formatService(sub.service)}</span></td>
+                    <td>${formatBudget(sub.budget)}</td>
+                    <td>${formatTimeline(sub.timeline)}</td>
+                    <td><div class="submission-message" title="${sub.message}">${sub.message}</div></td>
+                    <td>
+                        <button class="action-btn" onclick="viewDetails(${index})" title="View Details">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="action-btn delete" onclick="deleteSubmission('${sub.id || index}')" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function setupFilters() {
+            const searchInput = document.getElementById('searchInput');
+            const serviceFilter = document.getElementById('serviceFilter');
+            const budgetFilter = document.getElementById('budgetFilter');
+
+            searchInput.addEventListener('input', applyFilters);
+            serviceFilter.addEventListener('change', applyFilters);
+            budgetFilter.addEventListener('change', applyFilters);
+        }
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const serviceValue = document.getElementById('serviceFilter').value;
+            const budgetValue = document.getElementById('budgetFilter').value;
+
+            filteredSubmissions = allSubmissions.filter(sub => {
+                const matchesSearch = !searchTerm || 
+                    sub.firstName.toLowerCase().includes(searchTerm) ||
+                    sub.lastName.toLowerCase().includes(searchTerm) ||
+                    sub.email.toLowerCase().includes(searchTerm) ||
+                    sub.phone.includes(searchTerm) ||
+                    (sub.company && sub.company.toLowerCase().includes(searchTerm));
+                
+                const matchesService = !serviceValue || sub.service === serviceValue;
+                const matchesBudget = !budgetValue || sub.budget === budgetValue;
+
+                return matchesSearch && matchesService && matchesBudget;
+            });
+
+            renderTable();
+        }
+
+        async function deleteSubmission(id) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cette soumission?')) return;
+            
+            try {
+                if (useFirebase && typeof id === 'string' && !id.match(/^\d+$/)) {
+                    // Delete from Firebase
+                    await window.firebaseDB.delete(id);
+                    showNotification('Supprimé de Firebase', 'success');
+                } else {
+                    // Delete from localStorage
+                    let submissions = getAllSubmissions();
+                    const index = typeof id === 'string' ? parseInt(id) : id;
+                    submissions.splice(index, 1);
+                    localStorage.setItem('sichertech_submissions', JSON.stringify(submissions));
+                    loadLocalSubmissions();
+                    showNotification('Supprimé localement', 'success');
+                }
+            } catch (error) {
+                showNotification('Erreur lors de la suppression', 'error');
+                console.error(error);
+            }
+        }
+
+        function viewDetails(filteredIndex) {
+            const sub = filteredSubmissions[filteredIndex];
+            const details = `
+Date: ${new Date(sub.submittedAt).toLocaleString()}
+Name: ${sub.firstName} ${sub.lastName}
+Email: ${sub.email}
+Phone: ${sub.phone}
+Company: ${sub.company || 'N/A'}
+Service: ${formatService(sub.service)}
+Budget: ${formatBudget(sub.budget)}
+Timeline: ${formatTimeline(sub.timeline)}
+Newsletter: ${sub.newsletter ? 'Yes' : 'No'}
+
+Message:
+${sub.message}
+            `;
+            
+            alert(details);
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        function formatService(service) {
+            return service.split('-').map(word => 
+                word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' ');
+        }
+
+        function formatBudget(budget) {
+            const budgetMap = {
+                'under-5k': 'Under $5K',
+                '5k-10k': '$5K-$10K',
+                '10k-25k': '$10K-$25K',
+                '25k-50k': '$25K-$50K',
+                'over-50k': 'Over $50K'
+            };
+            return budgetMap[budget] || budget;
+        }
+
+        function formatTimeline(timeline) {
+            const timelineMap = {
+                'urgent': 'Urgent',
+                'normal': 'Normal',
+                'flexible': 'Flexible',
+                'planning': 'Planning'
+            };
+            return timelineMap[timeline] || timeline;
+        }
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (unsubscribe) {
+                unsubscribe();
+            }
+        });
+    </script>
+</body>
+</html>

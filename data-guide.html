@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Access Your Data - Sicher Tech</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 2rem 2rem;
+        }
+        
+        .guide-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+        }
+        
+        .guide-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .guide-section h3 {
+            color: var(--text-color);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .step {
+            background: var(--bg-dark);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        
+        code {
+            background: var(--bg-dark);
+            color: var(--primary-color);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        pre {
+            background: var(--bg-dark);
+            padding: 1rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+        
+        .alert-info {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid var(--primary-color);
+            color: var(--text-color);
+        }
+        
+        .alert-warning {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid orange;
+            color: var(--text-color);
+        }
+        
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .quick-link-card {
+            background: var(--bg-dark);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            transition: var(--transition);
+        }
+        
+        .quick-link-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .quick-link-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-text">SICHER</span>
+                <span class="logo-highlight">TECH</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="guide-container">
+        <div class="guide-section">
+            <h1 style="color: var(--text-color); margin-bottom: 0.5rem;">
+                <i class="fas fa-database"></i> Comment Récupérer Vos Données
+            </h1>
+            <p style="color: var(--text-muted);">Guide complet pour accéder aux informations de contact soumises</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="quick-links">
+            <a href="admin.html" class="quick-link-card">
+                <i class="fas fa-user-shield"></i>
+                <h4 style="color: var(--text-color);">Page Admin</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Interface visuelle</p>
+            </a>
+            <a href="contact.html" class="quick-link-card">
+                <i class="fas fa-paper-plane"></i>
+                <h4 style="color: var(--text-color);">Formulaire</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Tester le formulaire</p>
+            </a>
+        </div>
+
+        <!-- Méthode 1: Page Admin -->
+        <div class="guide-section">
+            <h2><i class="fas fa-chart-line"></i> Méthode 1: Page Admin (Recommandé)</h2>
+            <p style="color: var(--text-muted);">La façon la plus simple de voir toutes vos soumissions</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong style="color: var(--text-color);">Ouvrir la page Admin</strong>
+                <p style="color: var(--text-muted); margin: 0.5rem 0 0 3rem;">
+                    Allez sur <code>http://localhost:8080/admin.html</code> ou cliquez sur "Admin" dans le menu
+                </p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong style="color: var(--text-color);">Voir vos statistiques</strong>
+                <p style="color: var(--text-muted); margin: 0.5rem 0 0 3rem;">
+                    Vous verrez le nombre total de soumissions, aujourd'hui, cette semaine et ce mois
+                </p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong style="color: var(--text-color);">Filtrer et rechercher</strong>
+                <p style="color: var(--text-muted); margin: 0.5rem 0 0 3rem;">
+                    Utilisez la barre de recherche pour trouver un client par nom, email ou téléphone
+                </p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong style="color: var(--text-color);">Exporter les données</strong>
+                <p style="color: var(--text-muted); margin: 0.5rem 0 0 3rem;">
+                    Cliquez sur "Export CSV" pour télécharger toutes les données en format Excel
+                </p>
+            </div>
+        </div>
+
+        <!-- Méthode 2: Console JavaScript -->
+        <div class="guide-section">
+            <h2><i class="fas fa-terminal"></i> Méthode 2: Console JavaScript</h2>
+            <p style="color: var(--text-muted);">Pour les utilisateurs avancés</p>
+            
+            <h3>Ouvrir la Console</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong style="color: var(--text-color);">Appuyez sur F12</strong>
+                <p style="color: var(--text-muted); margin: 0.5rem 0 0 3rem;">
+                    Ou clic droit → Inspecter → Console
+                </p>
+            </div>
+
+            <h3>Commandes Disponibles</h3>
+            
+            <div class="alert alert-info">
+                <strong><i class="fas fa-info-circle"></i> Voir toutes les soumissions</strong>
+                <pre><code>sichertechAdmin.getAllSubmissions()</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+                <strong><i class="fas fa-download"></i> Exporter en CSV</strong>
+                <pre><code>sichertechAdmin.exportSubmissionsToCSV()</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+                <strong><i class="fas fa-search"></i> Chercher une soumission spécifique</strong>
+                <pre><code>// Par email
+const submissions = sichertechAdmin.getAllSubmissions();
+const found = submissions.find(s => s.email === 'client@email.com');
+console.log(found);</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+                <strong><i class="fas fa-filter"></i> Filtrer par service</strong>
+                <pre><code>// Toutes les demandes de web development
+const submissions = sichertechAdmin.getAllSubmissions();
+const webDev = submissions.filter(s => s.service === 'web-development');
+console.log(`${webDev.length} demandes de web development`);</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+                <strong><i class="fas fa-dollar-sign"></i> Filtrer par budget</strong>
+                <pre><code>// Clients avec gros budget
+const submissions = sichertechAdmin.getAllSubmissions();
+const highBudget = submissions.filter(s => s.budget === 'over-50k');
+console.log('Clients budget élevé:', highBudget);</code></pre>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong><i class="fas fa-trash"></i> Supprimer toutes les données (Attention!)</strong>
+                <pre><code>sichertechAdmin.clearAllSubmissions()</code></pre>
+            </div>
+        </div>
+
+        <!-- Méthode 3: LocalStorage Direct -->
+        <div class="guide-section">
+            <h2><i class="fas fa-database"></i> Méthode 3: LocalStorage Direct</h2>
+            <p style="color: var(--text-muted);">Accès direct aux données du navigateur</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong style="color: var(--text-color);">Ouvrir DevTools</strong>
+                <p style="color: var(--text-muted); margin: 0.5rem 0 0 3rem;">F12 → Application (Chrome) ou Storage (Firefox)</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong style="color: var(--text-color);">Aller dans Local Storage</strong>
+                <p style="color: var(--text-muted); margin: 0.5rem 0 0 3rem;">
+                    Cherchez la clé <code>sichertech_submissions</code>
+                </p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong style="color: var(--text-color);">Voir/Copier les données</strong>
+                <p style="color: var(--text-muted); margin: 0.5rem 0 0 3rem;">
+                    Double-cliquez sur la valeur pour voir toutes les soumissions en JSON
+                </p>
+            </div>
+        </div>
+
+        <!-- Format des Données -->
+        <div class="guide-section">
+            <h2><i class="fas fa-file-code"></i> Format des Données</h2>
+            <p style="color: var(--text-muted);">Structure JSON de chaque soumission</p>
+            
+            <pre><code>{
+  "firstName": "Jean",
+  "lastName": "Dupont",
+  "email": "jean.dupont@example.com",
+  "phone": "407-393-7460",
+  "company": "Ma Société",
+  "service": "web-development",
+  "budget": "10k-25k",
+  "timeline": "normal",
+  "message": "Bonjour, j'aimerais créer un site web...",
+  "newsletter": true,
+  "terms": true,
+  "submittedAt": "2026-02-05T14:30:00.000Z"
+}</code></pre>
+        </div>
+
+        <!-- Options Avancées -->
+        <div class="guide-section">
+            <h2><i class="fas fa-rocket"></i> Options Avancées</h2>
+            
+            <h3>1. Envoi par Email Automatique</h3>
+            <p style="color: var(--text-muted);">Configurez EmailJS pour recevoir les soumissions par email:</p>
+            <div class="step">
+                <p style="color: var(--text-muted);">
+                    • Créez un compte sur <a href="https://www.emailjs.com" target="_blank" style="color: var(--primary-color);">EmailJS.com</a><br>
+                    • Configurez votre service email<br>
+                    • Ajoutez les clés API dans <code>js/main.js</code><br>
+                    • Recevez chaque soumission par email automatiquement
+                </p>
+            </div>
+
+            <h3>2. Sauvegarde dans une Base de Données</h3>
+            <p style="color: var(--text-muted);">Pour une solution professionnelle:</p>
+            <div class="step">
+                <p style="color: var(--text-muted);">
+                    <strong style="color: var(--text-color);">Options populaires:</strong><br>
+                    • <strong>Firebase</strong> - Base de données en temps réel gratuite<br>
+                    • <strong>Supabase</strong> - Alternative open-source à Firebase<br>
+                    • <strong>MongoDB Atlas</strong> - Base de données NoSQL<br>
+                    • <strong>MySQL/PostgreSQL</strong> - Bases de données traditionnelles
+                </p>
+            </div>
+
+            <h3>3. Webhook vers votre CRM</h3>
+            <p style="color: var(--text-muted);">Intégrez directement avec:</p>
+            <div class="step">
+                <p style="color: var(--text-muted);">
+                    • <strong>HubSpot</strong> - CRM et Marketing<br>
+                    • <strong>Salesforce</strong> - CRM entreprise<br>
+                    • <strong>Zapier</strong> - Connecteur universel<br>
+                    • <strong>Make (Integromat)</strong> - Automatisation
+                </p>
+            </div>
+        </div>
+
+        <!-- Exemples Pratiques -->
+        <div class="guide-section">
+            <h2><i class="fas fa-code"></i> Exemples de Code Pratiques</h2>
+            
+            <h3>Obtenir les 5 dernières soumissions</h3>
+            <pre><code>const submissions = sichertechAdmin.getAllSubmissions();
+const latest5 = submissions.slice(-5).reverse();
+console.table(latest5);</code></pre>
+
+            <h3>Compter par service</h3>
+            <pre><code>const submissions = sichertechAdmin.getAllSubmissions();
+const byService = {};
+submissions.forEach(s => {
+    byService[s.service] = (byService[s.service] || 0) + 1;
+});
+console.log('Statistiques par service:', byService);</code></pre>
+
+            <h3>Trouver les emails pour newsletter</h3>
+            <pre><code>const submissions = sichertechAdmin.getAllSubmissions();
+const newsletters = submissions
+    .filter(s => s.newsletter)
+    .map(s => s.email);
+console.log('Abonnés newsletter:', newsletters);</code></pre>
+
+            <h3>Exporter les téléphones pour WhatsApp</h3>
+            <pre><code>const submissions = sichertechAdmin.getAllSubmissions();
+const phones = submissions.map(s => s.phone);
+console.log('Tous les téléphones:', phones.join(', '));</code></pre>
+        </div>
+
+        <!-- FAQ -->
+        <div class="guide-section">
+            <h2><i class="fas fa-question-circle"></i> Questions Fréquentes</h2>
+            
+            <h3>Où sont stockées les données?</h3>
+            <p style="color: var(--text-muted);">
+                Les données sont stockées localement dans le <strong>localStorage</strong> de votre navigateur. 
+                Elles restent sur votre ordinateur et ne sont pas envoyées à un serveur.
+            </p>
+
+            <h3>Les données sont-elles perdues si je ferme le navigateur?</h3>
+            <p style="color: var(--text-muted);">
+                Non! Les données restent sauvegardées même après fermeture du navigateur. 
+                Elles sont conservées jusqu'à ce que vous les supprimiez ou vidiez le cache.
+            </p>
+
+            <h3>Combien de soumissions peuvent être stockées?</h3>
+            <p style="color: var(--text-muted);">
+                Le système garde les 50 dernières soumissions. Exportez régulièrement en CSV 
+                pour conserver un historique complet.
+            </p>
+
+            <h3>Comment sauvegarder mes données?</h3>
+            <p style="color: var(--text-muted);">
+                Utilisez le bouton "Export CSV" sur la page admin. Cela télécharge un fichier 
+                Excel avec toutes vos données que vous pouvez ouvrir et sauvegarder.
+            </p>
+
+            <h3>Puis-je accéder aux données depuis un autre ordinateur?</h3>
+            <p style="color: var(--text-muted);">
+                Non, les données localStorage sont spécifiques à chaque navigateur. Pour un accès 
+                multi-appareils, configurez une base de données (Firebase, Supabase, etc.)
+            </p>
+        </div>
+
+        <!-- Support -->
+        <div class="guide-section" style="text-align: center; background: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);">
+            <h2><i class="fas fa-life-ring"></i> Besoin d'Aide?</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                Notre équipe est là pour vous aider à configurer votre système
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://wa.me/14073937460" class="btn btn-primary" target="_blank">
+                    <i class="fab fa-whatsapp"></i> WhatsApp: 407-393-7460
+                </a>
+                <a href="tel:+14072254688" class="btn btn-secondary">
+                    <i class="fas fa-phone"></i> Appeler: 407-225-4688
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
