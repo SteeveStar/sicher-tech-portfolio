@@ -230,7 +230,7 @@ const statsObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             const statNumber = entry.target.querySelector('.stat-number');
             if (statNumber && !statNumber.dataset.animated) {
-                const target = parseInt(statNumber.textContent.replace(/\D/g, ''));
+                const target = parseInt(statNumber.dataset.target);
                 statNumber.dataset.animated = 'true';
                 animateCounter(statNumber, target);
             }
