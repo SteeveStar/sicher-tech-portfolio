@@ -8,19 +8,27 @@
 // ==========================================
 // PAGE LOADER
 // ==========================================
-window.addEventListener('load', () => {
+// Cacher le loader dès que le DOM est prêt
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hideLoader);
+} else {
+    // DOM déjà chargé
+    hideLoader();
+}
+
+// Aussi cacher quand tout est complètement chargé
+window.addEventListener('load', hideLoader);
+
+function hideLoader() {
     const loader = document.querySelector('.page-loader');
-    if (loader) {
-        // Cacher le loader immédiatement après le chargement
+    if (loader && !loader.classList.contains('hidden')) {
+        loader.classList.add('hidden');
+        // Supprimer complètement après la transition
         setTimeout(() => {
-            loader.classList.add('hidden');
-            // Supprimer complètement après la transition
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 500);
-        }, 300); // Délai minimum de 300ms
+            loader.style.display = 'none';
+        }, 500);
     }
-});
+}
 
 // ==========================================
 // MOBILE MENU TOGGLE - ANIMATION FLUIDE
