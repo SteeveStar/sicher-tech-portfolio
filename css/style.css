@@ -528,10 +528,11 @@ a {
     padding: var(--spacing-md);
     border-radius: 15px;
     text-align: center;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(0, 255, 0, 0.1);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .service-card::before {
@@ -1522,10 +1523,11 @@ a {
     z-index: 999;
     cursor: pointer;
     transition: transform 0.3s ease;
+    text-decoration: none;
 }
 
 .rotating-badge:hover {
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
 .rotating-badge-circle {

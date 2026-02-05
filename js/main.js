@@ -124,6 +124,27 @@ if (window.innerWidth <= 768) {
 }
 
 // ==========================================
+// ANIMATION CARTES SERVICES AU CLIC
+// ==========================================
+document.addEventListener('DOMContentLoaded', function() {
+    const serviceCards = document.querySelectorAll('.service-card');
+    
+    serviceCards.forEach(card => {
+        card.addEventListener('click', function() {
+            // Ajouter animation
+            this.style.transform = 'scale(1.05)';
+            this.style.boxShadow = '0 20px 60px rgba(0, 255, 0, 0.4)';
+            
+            // Retirer l'animation après 300ms
+            setTimeout(() => {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            }, 300);
+        });
+    });
+});
+
+// ==========================================
 // INTERSECTION OBSERVER FOR ANIMATIONS
 // ==========================================
 const observerOptions = {
