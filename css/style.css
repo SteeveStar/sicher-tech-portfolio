@@ -1512,12 +1512,114 @@ a {
     animation: fadeInUp 0.8s ease;
 }
 
+/* Cercle rotatif permanent */
+.rotating-badge {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 120px;
+    height: 120px;
+    z-index: 999;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.rotating-badge:hover {
+    transform: scale(1.1);
+}
+
+.rotating-badge-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 255, 0, 0.1) 0%, transparent 70%);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+    animation: rotate 10s linear infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.rotating-badge-circle::before {
+    content: '';
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    animation: rotate 15s linear infinite reverse;
+}
+
+.rotating-badge-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: rotate 10s linear infinite;
+}
+
+.rotating-badge-text text {
+    fill: var(--primary-color);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.rotating-badge-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: var(--primary-color);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
 /* ==========================================
    RESPONSIVE DESIGN - MOBILE FIRST
    ========================================== */
 @media (max-width: 768px) {
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
+    
+    /* Badge rotatif mobile */
+    .rotating-badge {
+        width: 90px;
+        height: 90px;
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .rotating-badge-text text {
+        font-size: 9px;
+        letter-spacing: 2px;
+    }
+    
+    .rotating-badge-icon {
+        font-size: 1.5rem;
+    }
     
     /* Navigation Mobile */
     .navbar {
