@@ -11,13 +11,14 @@
 window.addEventListener('load', () => {
     const loader = document.querySelector('.page-loader');
     if (loader) {
+        // Cacher le loader immédiatement après le chargement
         setTimeout(() => {
             loader.classList.add('hidden');
             // Supprimer complètement après la transition
             setTimeout(() => {
                 loader.style.display = 'none';
             }, 500);
-        }, 500); // Délai minimum de 500ms pour montrer le loader
+        }, 300); // Délai minimum de 300ms
     }
 });
 
