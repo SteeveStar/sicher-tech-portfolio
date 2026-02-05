@@ -6,24 +6,6 @@
 'use strict';
 
 // ==========================================
-// PAGE LOADER - 3 SECONDES
-// ==========================================
-// Cacher le loader après exactement 3 secondes
-function hideLoader() {
-    const loader = document.querySelector('.page-loader');
-    if (loader && !loader.classList.contains('hidden')) {
-        loader.classList.add('hidden');
-        // Supprimer complètement après la transition
-        setTimeout(() => {
-            loader.style.display = 'none';
-        }, 300);
-    }
-}
-
-// Attendre 3 secondes avant de cacher le loader
-setTimeout(hideLoader, 3000);
-
-// ==========================================
 // MOBILE MENU TOGGLE - ANIMATION FLUIDE
 // ==========================================
 const hamburger = document.querySelector('.hamburger');
